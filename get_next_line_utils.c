@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcologne <jcologne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcologne <jcologne@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:42:51 by jcologne          #+#    #+#             */
-/*   Updated: 2024/11/12 19:31:54 by jcologne         ###   ########.fr       */
+/*   Updated: 2024/11/16 22:56:53 by jcologne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-
-	void			*result;
-	unsigned char	*ptr;
-	size_t			i;
-
-	if ((nmemb != 0 && size) > ((size_t)-1) / nmemb)
-		return (NULL);
-	result = malloc(size * nmemb);
-	if (!result)
-		return (NULL);
-	ptr = (unsigned char *)result;
-	i = 0;
-	while (i < size * nmemb)
-		ptr[i++] = 0;
-	return (result);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	const char	*tmp;
@@ -73,4 +54,45 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)tmp);
 	return (NULL);
+}
+
+unsigned int	ft_strlen(const char *s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(const char *s)
+{
+	size_t	len;
+	char	*str;
+
+	len = ft_strlen(s) + 1;
+	str = (char *) malloc(len);
+	if (str == 0)
+		return (NULL);
+	ft_strlcpy(str, s, len);
+	return (str);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	src_len;
+	size_t	i;
+
+	src_len = ft_strlen(src);
+	if (size == 0)
+		return (src_len);
+	i = 0;
+	while (src[i] && i < (size - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
 }
